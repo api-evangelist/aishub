@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.aishub.net
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 20:33:05 2026 GMT
+  hsts: false
+- host: data.aishub.net
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 20:33:05 2026 GMT
+  hsts: false
+domains:
+- domain: aishub.net
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false
