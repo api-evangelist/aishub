@@ -1,0 +1,60 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: AISHub
+providerId: aishub
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Vessel Tracking
+- Maritime
+- AIS
+- Rate Limiting
+- Quotas
+description: >-
+  AISHub publishes one explicit rate limit for its HTTP web service - do not
+  access it more frequently than once per minute. The documentation states the
+  web service simply returns nothing (an empty response) when called more
+  often, rather than returning an HTTP throttling status. Beyond that
+  polling cadence there are no documented per-day quotas or volume caps;
+  large result sets are managed through bounding box, MMSI/IMO, and interval
+  filters plus optional ZIP/GZIP/BZIP2 compression. Continued API access is
+  additionally conditioned on your contributed feed maintaining its quality
+  thresholds (10+ vessels coverage, 90%+ uptime over a rolling 7-day period,
+  message delay under 10 seconds).
+notes: >-
+  No 429 or Retry-After behavior is documented - over-polling yields an empty
+  body. Clients should schedule requests at 60-second or longer intervals and
+  treat empty responses as a signal to back off.
+sources:
+- https://www.aishub.net/api
+- https://www.aishub.net/join-us
+responseCodes:
+  throttled: none documented (empty response body is returned instead)
+limits:
+- name: Web Service Polling
+  scope: account
+  metric: requests
+  limit: 1 per minute
+  notes: Documented limit for ws.php and stations.php - the service returns nothing if executed more frequently than once per minute.
+- name: Result Volume
+  scope: request
+  metric: records
+  limit: not published
+  notes: No documented cap; constrain result size via latmin/latmax/lonmin/lonmax bounding box, mmsi/imo filters, and the interval (max position age) parameter, and use compress for large payloads.
+- name: Feed Quality Condition
+  scope: account
+  metric: feed quality
+  limit: 10+ vessels, 90%+ uptime (rolling 7 days), <=10s delay
+  notes: Not a request limit, but API credentials depend on the contributed AIS feed continuously meeting these thresholds.
+policies:
+- name: Once-Per-Minute Polling
+  description: Poll ws.php and stations.php at 60-second or longer intervals; more frequent calls return an empty response.
+- name: Filter Before You Fetch
+  description: Use bounding box, MMSI/IMO, and interval parameters to request only the vessels you need instead of pulling the global dataset each minute.
+- name: Compression for Bulk Pulls
+  description: Use compress=1/2/3 (ZIP/GZIP/BZIP2) when pulling large areas to reduce transfer size.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

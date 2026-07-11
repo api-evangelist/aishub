@@ -1,0 +1,126 @@
+{
+  "info": {
+    "name": "AISHub Web Service API",
+    "description": "HTTP web service for the AISHub AIS data-sharing network - latest vessel positions (ws.php) and receiving station metadata (stations.php) as XML, JSON, or CSV. Authenticated with the member username issued to qualifying feed contributors (contribute-to-access model: stream a raw NMEA AIS feed to AISHub via UDP to earn free API access). Do not poll more frequently than once per minute.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://data.aishub.net"
+    },
+    {
+      "key": "username",
+      "value": "YOUR_AISHUB_USERNAME"
+    }
+  ],
+  "item": [
+    {
+      "name": "Vessel Positions",
+      "item": [
+        {
+          "name": "Get latest vessel positions (bounding box, JSON)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ws.php?username={{username}}&format=1&output=json&compress=0&latmin=50.0&latmax=52.0&lonmin=0.0&lonmax=3.0",
+              "host": ["{{baseUrl}}"],
+              "path": ["ws.php"],
+              "query": [
+                { "key": "username", "value": "{{username}}", "description": "AISHub member username (required)" },
+                { "key": "format", "value": "1", "description": "0 = AIS encoding, 1 = human-readable" },
+                { "key": "output", "value": "json", "description": "xml | json | csv" },
+                { "key": "compress", "value": "0", "description": "0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2" },
+                { "key": "latmin", "value": "50.0", "description": "Southern bounding box boundary" },
+                { "key": "latmax", "value": "52.0", "description": "Northern bounding box boundary" },
+                { "key": "lonmin", "value": "0.0", "description": "Western bounding box boundary" },
+                { "key": "lonmax", "value": "3.0", "description": "Eastern bounding box boundary" }
+              ]
+            },
+            "description": "Latest vessel positions inside a bounding box, human-readable JSON. Poll no more than once per minute."
+          }
+        },
+        {
+          "name": "Get vessel positions by MMSI",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ws.php?username={{username}}&format=1&output=json&mmsi=244660920",
+              "host": ["{{baseUrl}}"],
+              "path": ["ws.php"],
+              "query": [
+                { "key": "username", "value": "{{username}}", "description": "AISHub member username (required)" },
+                { "key": "format", "value": "1", "description": "0 = AIS encoding, 1 = human-readable" },
+                { "key": "output", "value": "json", "description": "xml | json | csv" },
+                { "key": "mmsi", "value": "244660920", "description": "Filter by vessel MMSI number(s)" }
+              ]
+            },
+            "description": "Latest position for a specific vessel by MMSI."
+          }
+        },
+        {
+          "name": "Get recent vessel positions (max age interval)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ws.php?username={{username}}&format=1&output=json&interval=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["ws.php"],
+              "query": [
+                { "key": "username", "value": "{{username}}", "description": "AISHub member username (required)" },
+                { "key": "format", "value": "1", "description": "0 = AIS encoding, 1 = human-readable" },
+                { "key": "output", "value": "json", "description": "xml | json | csv" },
+                { "key": "interval", "value": "10", "description": "Maximum position age in minutes" }
+              ]
+            },
+            "description": "Only positions received within the last N minutes."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stations",
+      "item": [
+        {
+          "name": "Get all receiving stations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations.php?username={{username}}&output=json&compress=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations.php"],
+              "query": [
+                { "key": "username", "value": "{{username}}", "description": "AISHub member username (required)" },
+                { "key": "output", "value": "json", "description": "xml | json | csv" },
+                { "key": "compress", "value": "0", "description": "0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2" }
+              ]
+            },
+            "description": "Metadata for all receiving stations in the AISHub network."
+          }
+        },
+        {
+          "name": "Get station by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stations.php?username={{username}}&output=json&id=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations.php"],
+              "query": [
+                { "key": "username", "value": "{{username}}", "description": "AISHub member username (required)" },
+                { "key": "output", "value": "json", "description": "xml | json | csv" },
+                { "key": "id", "value": "1", "description": "Return only this station" }
+              ]
+            },
+            "description": "Metadata for a single station by id."
+          }
+        }
+      ]
+    }
+  ]
+}

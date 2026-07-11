@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: AISHub
+providerId: aishub
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Vessel Tracking
+- Maritime
+- AIS
+- Data Sharing
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of AISHub. There is no vendor invoice - AISHub is a cooperative
+  data-sharing network with a contribute-to-access model, so the cost of using
+  the API is entirely in-kind and infrastructure-side. Members bear the cost of
+  operating one or more AIS receiving stations (receiver hardware, antenna,
+  hosting, power, bandwidth) and of streaming a raw NMEA feed to AISHub over
+  UDP, plus whatever compute they use to poll and process the aggregated web
+  service data. In exchange, access to the aggregated vessel-position and
+  station data is free.
+notes: >-
+  There are no monetary meters to reconcile - AISHub publishes no pricing.
+  The FOCUS columns below model the in-kind arrangement; the dominant
+  real-world cost drivers are member-owned receiver infrastructure and the
+  operational effort of keeping the feed above the quality thresholds
+  (10+ vessels, 90%+ uptime rolling 7 days, <=10s delay) that continued API
+  access depends on.
+sources:
+- https://www.aishub.net/
+- https://www.aishub.net/join-us
+- https://www.aishub.net/api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: AISHub
+serviceCategory: Analytics and Data Streaming
+billingModel:
+  pricingCategory: Free (In-Kind Data Contribution)
+  billingFrequency: None
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+focusColumns:
+  ServiceName: AISHub Web Service
+  ServiceCategory: Analytics and Data Streaming
+  ProviderName: AISHub
+  PublisherName: AISHub
+  InvoiceIssuerName: None (no invoicing; contribute-to-access)
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Free
+meters:
+- name: receiver_infrastructure
+  description: Member-owned AIS receiving station costs - receiver, antenna, host device, power, connectivity. The real cost of AISHub access; no AISHub invoice.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - station
+- name: contributed_feed_bandwidth
+  description: Outbound bandwidth streaming the raw NMEA feed to AISHub over UDP.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - station
+- name: web_service_requests
+  description: Polls of ws.php and stations.php (free; bounded by the documented once-per-minute limit).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - endpoint
+- name: downstream_processing
+  description: Your own compute/storage for ingesting and processing the aggregated AIS data pulled from the web service or raw feed.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - workload
+principles:
+- name: Visibility
+  description: Track receiver uptime and coverage against the AISHub quality thresholds - losing them means losing free API access, which is the real financial risk.
+- name: Allocation
+  description: Attribute receiver-station and processing costs to the internal workloads consuming the vessel data.
+- name: Optimization
+  description: Filter web service pulls with bounding box, MMSI/IMO, and interval parameters and use compression, so downstream processing and storage only handle needed vessels.
+- name: Accountability
+  description: Assign an owner for each receiving station responsible for keeping the contributed feed within quality thresholds.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

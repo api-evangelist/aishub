@@ -1,0 +1,73 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: AISHub
+providerId: aishub
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Vessel Tracking
+- Maritime
+- AIS
+- Data Sharing
+- Plans
+description: >-
+  AISHub has a single, non-monetary access model - contribute-to-access. There
+  are no paid tiers and no open free tier; instead, members earn free access to
+  the aggregated network data (raw NMEA feed and the HTTP web service) by
+  operating an AIS receiver and streaming at least one raw NMEA AIS feed to
+  AISHub over UDP. API credentials are granted once the contributed feed meets
+  published quality thresholds - coverage of at least 10 vessels and at least
+  90% uptime over a rolling 7-day period, with message delays not exceeding 10
+  seconds. The "price" of the API is your data contribution plus the cost of
+  running your own receiver.
+notes: >-
+  No pricing page exists; no commercial/paid access route is documented on
+  aishub.net. Commercial-use terms are not explicitly addressed in the public
+  join documentation - members should confirm usage terms with AISHub.
+sources:
+- https://www.aishub.net/
+- https://www.aishub.net/join-us
+- https://www.aishub.net/api
+plans:
+- id: aishub-contributor
+  name: Contributor (Data Sharing)
+  type: free
+  description: >-
+    The only plan. Stream a raw NMEA AIS feed from your receiver to AISHub via
+    UDP; once the feed meets the quality thresholds you receive an API
+    username and free access to the aggregated data - vessel positions and
+    station metadata via the HTTP web service (XML/JSON/CSV) plus the raw
+    aggregated NMEA feed, a real-time monitoring dashboard, and feed-down
+    alerts.
+  entries:
+  - label: Data Contribution (in-kind)
+    name: data_contribution
+    type: usage
+    metric: feeds
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free in exchange for at least one qualifying raw NMEA AIS feed (10+ vessels, 90%+ uptime over rolling 7 days, <=10s delay)
+    userMultiplied: false
+  - label: Web Service Polling
+    name: web_service_polling
+    type: usage
+    metric: requests
+    limit: 1
+    timeFrame: minute
+    geo: global
+    unit: 1
+    price: free (documented limit of one request per minute)
+    userMultiplied: false
+  elements:
+  - name: Vessel Positions Web Service (ws.php)
+  - name: Stations Web Service (stations.php)
+  - name: Raw Aggregated NMEA Feed (TCP/UDP)
+  - name: Real-Time Feed Monitoring Dashboard
+  - name: Feed Disconnect Alerts (6+ hours)
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

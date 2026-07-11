@@ -1,0 +1,74 @@
+aid: aishub
+name: AISHub
+review:
+  question: Does AISHub expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. AISHub's documented API surface is a
+    request/response HTTP web service (ws.php and stations.php on
+    data.aishub.net) with no server-push transport (WebSocket or SSE) to
+    model. AISHub does distribute the aggregated real-time AIS stream to
+    contributors as raw NMEA sentences over TCP/UDP socket connections, but
+    raw AIS TCP/UDP feeds are a bare socket protocol, not WebSocket, and are
+    provisioned per-member rather than publicly documented endpoints, so no
+    AsyncAPI document was created for them.
+findings:
+  summary: |
+    AISHub does not publish a documented public WebSocket API. AISHub is a
+    cooperative AIS data-sharing network - members contribute a raw NMEA AIS
+    feed from their own receiver via UDP and in return get free access to the
+    aggregated network data. The documented programmatic surface is an HTTP
+    web service on data.aishub.net with two endpoints - ws.php (vessel
+    positions) and stations.php (station metadata) - returning XML, JSON, or
+    CSV, authenticated by a member username parameter, with bounding box,
+    MMSI, IMO, and position-age filters. Real-time distribution to
+    contributors is the raw aggregated NMEA stream over TCP/UDP sockets;
+    ingestion from contributors is NMEA over UDP to an assigned port. None of
+    these are WebSocket (ws:// or wss://), and no WebSocket endpoint appears
+    anywhere in the documentation as of the review date.
+  accessModel: |
+    Contribute-to-access. There is no open signup or paid tier for the API.
+    Applicants must operate an AIS receiver and stream at least one raw NMEA
+    feed to AISHub over UDP. API credentials are granted once the feed shows
+    coverage of at least 10 vessels and at least 90% uptime over a rolling
+    7-day period, with message delays not exceeding 10 seconds. Access to the
+    aggregated data is free for qualifying contributors.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://data.aishub.net
+      documented: true
+      note: HTTP web service - GET /ws.php (vessel positions) and GET /stations.php (stations). XML/JSON/CSV output, username auth, documented once-per-minute polling limit.
+    - protocol: TCP/UDP raw NMEA
+      scheme: tcp/udp
+      documented: true
+      note: Aggregated real-time AIS stream delivered to contributors as raw NMEA sentences over socket connections; contributor ingestion is NMEA over UDP to an assigned port. Bare socket protocol - NOT WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented on aishub.net (API page, join page, or elsewhere) as of the review date.
+  endpointsConfirmedRest:
+    - GET https://data.aishub.net/ws.php
+    - GET https://data.aishub.net/stations.php
+sources:
+  - url: https://www.aishub.net/api
+    type: Documentation
+    note: Web service reference - ws.php and stations.php endpoints, username auth, format/output/compress parameters, bounding box + mmsi/imo/interval filters, once-per-minute limit. No WebSocket mentioned.
+  - url: https://www.aishub.net/
+    type: Website
+    note: Network scale (1,500+ stations, 80 countries, ~107k vessels/24h), data-sharing model, AIS Dispatcher forwarding app, raw NMEA feed for contributors.
+  - url: https://www.aishub.net/join-us
+    type: SignUp
+    note: Contribute-to-access requirements - NMEA feed over UDP to assigned port; API key gated on 10-vessel coverage, 90% uptime over rolling 7 days, sub-10-second delay.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. AISHub's own API is request/response
+    HTTP, and its real-time surfaces are raw NMEA over TCP/UDP sockets, which
+    are outside AsyncAPI WebSocket scope and provisioned per-member rather
+    than publicly documented. Findings recorded here; no AsyncAPI document
+    was created.
