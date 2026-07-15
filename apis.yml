@@ -69,6 +69,8 @@ apis:
     and compression options as the vessel positions endpoint. Authenticated by
     member username.
 common:
+- type: AgenticAccess
+  url: agentic-access/aishub-agentic-access.yml
 - type: DomainSecurity
   url: security/aishub-domain-security.yml
 - type: Website
