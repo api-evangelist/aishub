@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: AISHub Web Service Stations API
+  description: HTTP web service for the AISHub AIS data-sharing network. Two endpoints on data.aishub.net return the latest vessel positions (ws.php) and receiving station metadata (stations.php) as XML, JSON, or CSV, with optional ZIP/GZIP/BZIP2 compression. Requests are authenticated with the member username issued when you join the network. Access is contribute-to-access - you must stream a raw NMEA AIS feed from your own receiver to AISHub (via UDP) and meet coverage/uptime quality thresholds to receive API credentials; access to the aggregated data is then free. Do not poll more frequently than once per minute - the service returns nothing when called more often. Endpoints, parameters, and defaults below are grounded in the published documentation at https://www.aishub.net/api; response schemas summarize the documented fields and are partially modeled where the docs do not enumerate exact types.
+  version: '1.0'
+  contact:
+    name: AISHub
+    url: https://www.aishub.net
+servers:
+- url: https://data.aishub.net
+  description: AISHub web service
+tags:
+- name: Stations
+  description: Metadata about the receiving stations that make up the network.
+paths:
+  /stations.php:
+    get:
+      operationId: getStations
+      tags:
+      - Stations
+      summary: Get receiving stations
+      description: Returns metadata about the receiving stations contributing to the AISHub network, optionally filtered to a single station id.
+      parameters:
+      - name: username
+        in: query
+        required: true
+        description: AISHub member username.
+        schema:
+          type: string
+      - name: output
+        in: query
+        required: false
+        description: Output format. Default xml.
+        schema:
+          type: string
+          enum:
+          - xml
+          - json
+          - csv
+          default: xml
+      - name: compress
+        in: query
+        required: false
+        description: 'Compression: 0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2. Default 0.'
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          default: 0
+      - name: id
+        in: query
+        required: false
+        description: Return only the station with this id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Station metadata in the requested output format.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+            text/csv:
+              schema:
+                type: string
+components:
+  schemas:
+    Station:
+      type: object
+      description: Metadata for one receiving station in the AISHub network. The documentation confirms the endpoint and its parameters but does not enumerate response fields; this schema is modeled.
+      additionalProperties: true
+      properties:
+        ID:
+          type: string
+          description: Station identifier (modeled).
