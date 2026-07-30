@@ -9,7 +9,19 @@ description: AISHub is a cooperative AIS (Automatic Identification System) data
   service that returns vessel positions and station metadata as XML, JSON, or
   CSV. There is no pay-for-access tier; API credentials are earned by sharing a
   feed that meets coverage and uptime quality thresholds.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Paid
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aishub.png
 tags:
 - Vessel Tracking
 - Maritime
@@ -21,53 +33,38 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: aishub:aishub-vessel-positions-api
-  name: AISHub Vessel Positions API
-  tags:
-  - Vessel Tracking
-  - AIS
-  - Positions
-  - Maritime
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.aishub.net/api
-  baseURL: https://data.aishub.net
-  properties:
-  - url: https://www.aishub.net/api
-    type: Documentation
-  - url: openapi/aishub-openapi.yml
-    type: OpenAPI
-  - url: collections/aishub.postman_collection.json
-    type: PostmanCollection
-  description: Returns the latest known position and voyage data for vessels
-    tracked by the AISHub network - MMSI, coordinates, course, speed, heading,
-    navigational status, IMO, name, callsign, ship type, dimensions, draught,
-    destination, and ETA. Supports bounding box (latmin/latmax/lonmin/lonmax),
-    MMSI and IMO filters, a maximum position age interval, XML/JSON/CSV output,
-    and optional ZIP/GZIP/BZIP2 compression. Authenticated by member username;
-    access requires contributing an AIS feed.
 - aid: aishub:aishub-stations-api
   name: AISHub Stations API
-  tags:
-  - Stations
-  - Receivers
-  - AIS
-  - Network
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Metadata about the receiving stations that make up the network.
   humanURL: https://www.aishub.net/api
   baseURL: https://data.aishub.net
+  tags:
+  - Stations
   properties:
-  - url: https://www.aishub.net/api
-    type: Documentation
-  - url: https://www.aishub.net/stations
-    type: Portal
-  - url: openapi/aishub-openapi.yml
-    type: OpenAPI
-  - url: collections/aishub.postman_collection.json
-    type: PostmanCollection
-  description: Returns metadata about the receiving stations that make up the
-    AISHub network, filterable by station id, with the same XML/JSON/CSV output
-    and compression options as the vessel positions endpoint. Authenticated by
-    member username.
+  - type: OpenAPI
+    url: openapi/aishub-stations-api-openapi.yml
+  - type: Documentation
+    url: https://www.aishub.net/api
+  - type: PostmanCollection
+    url: collections/aishub.postman_collection.json
+  - type: Portal
+    url: https://www.aishub.net/stations
+- aid: aishub:aishub-vessel-positions-api
+  name: AISHub Vessel Positions API
+  description: Latest known positions and voyage data for vessels tracked by the network.
+  humanURL: https://www.aishub.net/api
+  baseURL: https://data.aishub.net
+  tags:
+  - Vessel Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/aishub-vessel-positions-api-openapi.yml
+  - type: Documentation
+    url: https://www.aishub.net/api
+  - type: PostmanCollection
+    url: collections/aishub.postman_collection.json
+  - type: Portal
+    url: https://www.aishub.net/stations
 common:
 - type: AgenticAccess
   url: agentic-access/aishub-agentic-access.yml
