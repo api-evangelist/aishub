@@ -1,0 +1,16 @@
+{
+  "provider": "aishub",
+  "sources": [
+    "aishub-stations-api-openapi.yml",
+    "aishub-vessel-positions-api-openapi.yml"
+  ],
+  "outputs": [
+    "aishub-stations-api-openapi.yml",
+    "aishub-vessel-positions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
