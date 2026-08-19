@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "9516a8a0-16d1-45a8-afff-3d01d0847275",
+      "name": "Stations",
+      "description": {
+        "content": "Metadata about the receiving stations that make up the network.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "75178fa8-6674-498e-afbf-475161ebf0c2",
+          "name": "Get receiving stations",
+          "request": {
+            "name": "Get receiving stations",
+            "description": {
+              "content": "Returns metadata about the receiving stations contributing to the AISHub network, optionally filtered to a single station id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stations.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "(Required) AISHub member username."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "xml",
+                  "description": "Output format. Default xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "compress",
+                  "value": "0",
+                  "description": "Compression: 0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2. Default 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Return only the station with this id."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39c8e83a-365e-4f69-b95a-fcac30175e9e",
+              "name": "Station metadata in the requested output format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stations.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "xml"
+                    },
+                    {
+                      "key": "compress",
+                      "value": "0"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": \"string\",\n    \"key_0\": true,\n    \"key_1\": 9586.195062144778,\n    \"key_2\": 5561\n  },\n  {\n    \"ID\": \"string\",\n    \"key_0\": false,\n    \"key_1\": 4085.5119752535084,\n    \"key_2\": 2088,\n    \"key_3\": 7110\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.aishub.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0fdf6dbb-84c7-412d-ae4e-a456a5efcf00",
+    "name": "AISHub Web Service Stations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP web service for the AISHub AIS data-sharing network. Two endpoints on data.aishub.net return the latest vessel positions (ws.php) and receiving station metadata (stations.php) as XML, JSON, or CSV, with optional ZIP/GZIP/BZIP2 compression. Requests are authenticated with the member username issued when you join the network. Access is contribute-to-access - you must stream a raw NMEA AIS feed from your own receiver to AISHub (via UDP) and meet coverage/uptime quality thresholds to receive API credentials; access to the aggregated data is then free. Do not poll more frequently than once per minute - the service returns nothing when called more often. Endpoints, parameters, and defaults below are grounded in the published documentation at https://www.aishub.net/api; response schemas summarize the documented fields and are partially modeled where the docs do not enumerate exact types.\n\nContact Support:\n Name: AISHub",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AISHub Web Service Stations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get receiving stations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.aishub.net/stations.php",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "AISHub member username."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Output format. Default xml."
+              },
+              {
+                "name": "compress",
+                "value": "",
+                "type": "query",
+                "description": "Compression: 0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2. Default 0."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Return only the station with this id."
+              }
+            ]
+          },
+          "docs": "Returns metadata about the receiving stations contributing to the AISHub network, optionally filtered to a single station id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,214 @@
+{
+  "item": [
+    {
+      "id": "106ba685-e04a-4a2d-a827-6fb04dbcfe05",
+      "name": "Vessel Positions",
+      "description": {
+        "content": "Latest known positions and voyage data for vessels tracked by the network.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "123d7500-d710-455d-8e64-3b03845e8fc3",
+          "name": "Get latest vessel positions",
+          "request": {
+            "name": "Get latest vessel positions",
+            "description": {
+              "content": "Returns the latest known position and voyage data for vessels tracked by the AISHub network, filterable by bounding box, MMSI, IMO, and maximum position age. Poll no more than once per minute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "(Required) AISHub member username (issued to qualifying feed contributors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "0",
+                  "description": "Value encoding: 0 = AIS encoding, 1 = human-readable. Default 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "xml",
+                  "description": "Output format. Default xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "compress",
+                  "value": "0",
+                  "description": "Compression: 0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2. Default 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "latmin",
+                  "value": "-90",
+                  "description": "Southern boundary of bounding box (decimal degrees). Default -90."
+                },
+                {
+                  "disabled": false,
+                  "key": "latmax",
+                  "value": "90",
+                  "description": "Northern boundary of bounding box (decimal degrees). Default 90."
+                },
+                {
+                  "disabled": false,
+                  "key": "lonmin",
+                  "value": "-180",
+                  "description": "Western boundary of bounding box (decimal degrees). Default -180."
+                },
+                {
+                  "disabled": false,
+                  "key": "lonmax",
+                  "value": "180",
+                  "description": "Eastern boundary of bounding box (decimal degrees). Default 180."
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>",
+                  "description": "Filter by vessel MMSI number(s)."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "Filter by vessel IMO number(s)."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<integer>",
+                  "description": "Maximum age of returned positions, in minutes."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df345185-bd16-4945-944f-b5ca44422e2c",
+              "name": "Latest vessel positions in the requested output format. An empty body is returned when the once-per-minute polling limit is exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "0"
+                    },
+                    {
+                      "key": "output",
+                      "value": "xml"
+                    },
+                    {
+                      "key": "compress",
+                      "value": "0"
+                    },
+                    {
+                      "key": "latmin",
+                      "value": "-90"
+                    },
+                    {
+                      "key": "latmax",
+                      "value": "90"
+                    },
+                    {
+                      "key": "lonmin",
+                      "value": "-180"
+                    },
+                    {
+                      "key": "lonmax",
+                      "value": "180"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"MMSI\": 275,\n    \"TIME\": \"string\",\n    \"LATITUDE\": 4863.754237255203,\n    \"LONGITUDE\": 2636.4135749041184,\n    \"COG\": 4469.792376470737,\n    \"SOG\": 2517.534919612061,\n    \"HEADING\": 2534,\n    \"NAVSTAT\": 8463,\n    \"IMO\": 533,\n    \"NAME\": \"string\",\n    \"CALLSIGN\": \"string\",\n    \"TYPE\": 172,\n    \"A\": 2756,\n    \"B\": 5805,\n    \"C\": 5535,\n    \"D\": 745,\n    \"DRAUGHT\": 4551.771982026516,\n    \"DEST\": \"string\",\n    \"ETA\": \"string\"\n  },\n  {\n    \"MMSI\": 7949,\n    \"TIME\": \"string\",\n    \"LATITUDE\": 3123.552501075163,\n    \"LONGITUDE\": 997.9301015962627,\n    \"COG\": 302.8241993910896,\n    \"SOG\": 1511.11816783717,\n    \"HEADING\": 6989,\n    \"NAVSTAT\": 7183,\n    \"IMO\": 6843,\n    \"NAME\": \"string\",\n    \"CALLSIGN\": \"string\",\n    \"TYPE\": 2311,\n    \"A\": 5754,\n    \"B\": 9761,\n    \"C\": 888,\n    \"D\": 630,\n    \"DRAUGHT\": 9330.210272814767,\n    \"DEST\": \"string\",\n    \"ETA\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.aishub.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "68da3fac-b2ac-4caa-a540-630be304e07b",
+    "name": "AISHub Web Service Stations Vessel Positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP web service for the AISHub AIS data-sharing network. Two endpoints on data.aishub.net return the latest vessel positions (ws.php) and receiving station metadata (stations.php) as XML, JSON, or CSV, with optional ZIP/GZIP/BZIP2 compression. Requests are authenticated with the member username issued when you join the network. Access is contribute-to-access - you must stream a raw NMEA AIS feed from your own receiver to AISHub (via UDP) and meet coverage/uptime quality thresholds to receive API credentials; access to the aggregated data is then free. Do not poll more frequently than once per minute - the service returns nothing when called more often. Endpoints, parameters, and defaults below are grounded in the published documentation at https://www.aishub.net/api; response schemas summarize the documented fields and are partially modeled where the docs do not enumerate exact types.\n\nContact Support:\n Name: AISHub",
+      "type": "text/plain"
+    }
+  }
+}

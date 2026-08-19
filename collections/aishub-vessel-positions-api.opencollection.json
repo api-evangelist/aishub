@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AISHub Web Service Stations Vessel Positions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vessel Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get latest vessel positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.aishub.net/ws.php",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "AISHub member username (issued to qualifying feed contributors)."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Value encoding: 0 = AIS encoding, 1 = human-readable. Default 0."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Output format. Default xml."
+              },
+              {
+                "name": "compress",
+                "value": "",
+                "type": "query",
+                "description": "Compression: 0 = none, 1 = ZIP, 2 = GZIP, 3 = BZIP2. Default 0."
+              },
+              {
+                "name": "latmin",
+                "value": "",
+                "type": "query",
+                "description": "Southern boundary of bounding box (decimal degrees). Default -90."
+              },
+              {
+                "name": "latmax",
+                "value": "",
+                "type": "query",
+                "description": "Northern boundary of bounding box (decimal degrees). Default 90."
+              },
+              {
+                "name": "lonmin",
+                "value": "",
+                "type": "query",
+                "description": "Western boundary of bounding box (decimal degrees). Default -180."
+              },
+              {
+                "name": "lonmax",
+                "value": "",
+                "type": "query",
+                "description": "Eastern boundary of bounding box (decimal degrees). Default 180."
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query",
+                "description": "Filter by vessel MMSI number(s)."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Filter by vessel IMO number(s)."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum age of returned positions, in minutes."
+              }
+            ]
+          },
+          "docs": "Returns the latest known position and voyage data for vessels tracked by the AISHub network, filterable by bounding box, MMSI, IMO, and maximum position age. Poll no more than once per minute."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
