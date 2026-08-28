@@ -9,6 +9,18 @@ description: AISHub is a cooperative AIS (Automatic Identification System) data
   service that returns vessel positions and station metadata as XML, JSON, or
   CSV. There is no pay-for-access tier; API credentials are earned by sharing a
   feed that meets coverage and uptime quality thresholds.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: unknown
