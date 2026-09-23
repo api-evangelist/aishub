@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: AISHub Web Service Stations API
-  description: HTTP web service for the AISHub AIS data-sharing network. Two endpoints on data.aishub.net return the latest vessel positions (ws.php) and receiving station metadata (stations.php) as XML, JSON, or CSV, with optional ZIP/GZIP/BZIP2 compression. Requests are authenticated with the member username issued when you join the network. Access is contribute-to-access - you must stream a raw NMEA AIS feed from your own receiver to AISHub (via UDP) and meet coverage/uptime quality thresholds to receive API credentials; access to the aggregated data is then free. Do not poll more frequently than once per minute - the service returns nothing when called more often. Endpoints, parameters, and defaults below are grounded in the published documentation at https://www.aishub.net/api; response schemas summarize the documented fields and are partially modeled where the docs do not enumerate exact types.
+  description: HTTP web service for the AISHub AIS data-sharing network.
   version: '1.0'
   contact:
     name: AISHub
