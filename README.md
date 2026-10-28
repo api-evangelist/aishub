@@ -1,4 +1,4 @@
-# AISHub (aishub)
+# AISHub
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,85 +66,115 @@
 
 AISHub is a cooperative AIS (Automatic Identification System) data sharing network for vessel tracking. Members who contribute a raw NMEA AIS feed from their own receiver (via UDP) get free access in return - a real-time aggregated feed from 1,500+ stations across 80 countries, plus an HTTP web service that returns vessel positions and station metadata as XML, JSON, or CSV. There is no pay-for-access tier; API credentials are earned by sharing a feed that meets coverage and uptime quality thresholds.
 
-**Access model (important):** this is not an open or paid public API. To get a username for the web service you must operate an AIS receiver and stream at least one raw NMEA feed to AISHub over UDP. API credentials are granted once your feed demonstrates coverage of at least 10 vessels and at least 90% uptime over a rolling 7-day period, with message delays under 10 seconds. In exchange, access to the aggregated data is free.
+**Areas:** Vessel Tracking · Maritime · AIS · Shipping · Geospatial · Data Sharing
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aishub/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aishub/refs/heads/main/apis.yml)
+## AISHub on APIs.io
 
-## Tags
+Everything profiled for AISHub is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aishub/](https://apis.io/providers/aishub/)** — or go straight to one of the APIs or properties below.
 
-- Vessel Tracking
-- Maritime
-- AIS
-- Shipping
-- Geospatial
-- Data Sharing
+### APIs (2)
 
-## Timestamps
+- [AISHub Stations API](https://apis.io/apis/aishub/aishub-stations-api/) — Metadata about the receiving stations that make up the network.
+- [AISHub Vessel Positions API](https://apis.io/apis/aishub/aishub-vessel-positions-api/) — Latest known positions and voyage data for vessels tracked by the network.
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### AISHub Vessel Positions API
+#### Agentic access (1)
 
-Returns the latest known position and voyage data for vessels tracked by the AISHub network - MMSI, coordinates, course, speed, heading, navigational status, IMO, name, callsign, ship type, dimensions, draught, destination, and ETA. Supports bounding box (`latmin`/`latmax`/`lonmin`/`lonmax`), MMSI and IMO filters, a maximum position age `interval`, XML/JSON/CSV output, and optional ZIP/GZIP/BZIP2 compression. Authenticated by member `username`.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://www.aishub.net/api](https://www.aishub.net/api)
-- **Base URL:** `https://data.aishub.net`
-- **Endpoint:** `GET /ws.php`
+- [Aishub Agentic Access](https://apis.io/agentic-access/aishub/aishub-agentic-access/)
 
-#### Tags
+#### Collections (2)
 
-- Vessel Tracking
-- AIS
-- Positions
-- Maritime
+Postman and Open Collection request collections.
 
-#### Properties
+- [AISHub Web Service Stations API](https://apis.io/collections/aishub/open-aishub-stations-api/)
+- [AISHub Web Service Stations Vessel Positions API](https://apis.io/collections/aishub/open-aishub-vessel-positions-api/)
 
-- [Documentation](https://www.aishub.net/api)
-- [OpenAPI](openapi/aishub-openapi.yml)
-- [Postman Collection](collections/aishub.postman_collection.json)
+#### Security (1)
 
-### AISHub Stations API
+Authentication, trust centre, and vulnerability disclosure.
 
-Returns metadata about the receiving stations that make up the AISHub network, filterable by station `id`, with the same XML/JSON/CSV output and compression options as the vessel positions endpoint. Authenticated by member `username`.
+- [Aishub Domain Security](https://apis.io/security/aishub/aishub-domain-security/)
 
-- **Human URL:** [https://www.aishub.net/api](https://www.aishub.net/api)
-- **Base URL:** `https://data.aishub.net`
-- **Endpoint:** `GET /stations.php`
+#### Plans and pricing (1)
 
-#### Tags
+Published plans, tiers and prices.
 
-- Stations
-- Receivers
-- AIS
-- Network
+- [Aishub Plans Pricing](https://apis.io/plans/aishub/aishub-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Documentation](https://www.aishub.net/api)
-- [Stations Portal](https://www.aishub.net/stations)
-- [OpenAPI](openapi/aishub-openapi.yml)
-- [Postman Collection](collections/aishub.postman_collection.json)
+Published request limits.
 
-## Other Data Surfaces (not modeled as APIs)
+- [Aishub Rate Limits](https://apis.io/rate-limits/aishub/aishub-rate-limits/)
 
-- **Raw NMEA aggregated feed** - contributors can receive the aggregated raw AIS stream in NMEA format over TCP/UDP socket connections. This is a raw protocol feed, not an HTTP or WebSocket API, so it is noted here and in `review.yml` but not modeled in the OpenAPI.
-- **AIS Dispatcher** - AISHub's free Windows/Linux application for forwarding receiver data to the network.
+#### FinOps (1)
 
-## Common Properties
+What the API costs to run, by operation.
+
+- [Aishub Finops](https://apis.io/finops/aishub/aishub-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.aishub.net/)
 - [Documentation](https://www.aishub.net/api)
-- [Join / Sign Up](https://www.aishub.net/join-us)
-- [Coverage Map](https://www.aishub.net/coverage)
-- [Plans](plans/aishub-plans-pricing.yml)
-- [Rate Limits](rate-limits/aishub-rate-limits.yml)
-- [Fin Ops](finops/aishub-finops.yml)
+- [Sign up](https://www.aishub.net/join-us)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 24.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 43.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 20.2 |
+| Access clarity | 18.4 |
+
+**Agent readiness 17.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aishub/](https://apis.io/providers/aishub/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AISHub: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aishub/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
